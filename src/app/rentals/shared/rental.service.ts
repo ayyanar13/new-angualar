@@ -1,12 +1,13 @@
 import { Injectable} from "@angular/core";
-import { Observable } from "rxjs";
+import { observable, Observable } from "rxjs";
+import { Rental } from "./rental.model";
 
 @Injectable()
 
 
 export class rentalservice {
-    private rentals: any[] = [{
-        id: 1,
+    private rentals: Rental[] = [{
+        id: "1",
         title: "Central Apartment",
         city: "New York",
         street: "Times Sqaure",
@@ -19,7 +20,7 @@ export class rentalservice {
         createdAt: "24/12/2017"
     },
     {
-        id: 2,
+        id:" 2",
         title: "Central Apartment 2",
         city: "San Francisco",
         street: "Main street",
@@ -32,7 +33,7 @@ export class rentalservice {
         createdAt: "24/12/2017"
     },
     {
-        id: 3,
+        id: "3",
         title: "Central Apartment 3",
         city: "Bratislava",
         street: "Hlavna",
@@ -45,7 +46,7 @@ export class rentalservice {
         createdAt: "24/12/2017"
     },
     {
-        id: 4,
+        id:" 4",
         title: "Central Apartment 4",
         city: "Berlin",
         street: "Haupt strasse",
@@ -57,10 +58,21 @@ export class rentalservice {
         shared: true,
         createdAt: "24/12/2017"
     }]
+   public getrentalsbyId(renatlid:string|undefined):Observable<Rental[]>{
+       return new Observable<Rental[]>((observaber:any)=>{
+           setTimeout(() => {
+               var foundrental = this.rentals.find((rental)=>{
+                   return rental.id == renatlid
+               })
+               observaber.next(foundrental)
+           }, 500);
+       })
+
+   }
 
     
-    public getrentals() :any{
-        const rentalobservable = new Observable((observaber)=>{
+    public getrentals() :Observable<Rental[]>{
+        return  new Observable<Rental[]>((observaber)=>{
             setTimeout(() => {
                 observaber.next(this.rentals)
             }, 1000);
@@ -68,7 +80,6 @@ export class rentalservice {
                 observaber.error("errrrrrrr")
             }, 2000);
         })
-        return rentalobservable
     }
 
 

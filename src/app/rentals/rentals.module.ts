@@ -4,6 +4,8 @@ import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListItemsComponent } from './rental-list-items/rental-list-items.component';
 import { RentalsComponent } from './rentals.component';
 import {rentalservice  } from "./shared/rental.service";
+import { HttpClientModule } from "@angular/common/http";
+import { NgPipesModule } from 'ngx-pipes';
 
 import { Routes, RouterModule } from "@angular/router";
 import { RentalDetailsComponent } from './rental-details/rental-details.component';
@@ -24,6 +26,8 @@ const routes: Routes = [
     ],
     imports:[
         CommonModule,
+        HttpClientModule,
+        NgPipesModule,
         RouterModule.forChild(routes)
     ],
     providers:[

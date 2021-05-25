@@ -8,14 +8,9 @@ export class MapService {
     private locationcache: any = {};
     constructor(private camelizePipe: CamelizePipe){
     }
-
-
-
     private caramaize(value:any):string {
         return this.camelizePipe.transform(value)
     }
-    
-    
     private cachelocation(location:any,coordinates:any){
       return this.locationcache[this.caramaize(location)] = coordinates
     }
@@ -40,8 +35,6 @@ export class MapService {
       this.geocoder=new window.google.maps.Geocoder()
       return new Observable((observer)=>{
           
-          console.log(this.islocationcached(location));
-  
             if (this.islocationcached(location)) {
                 observer.next(this.locationcache[this.caramaize(location)])
             }else{

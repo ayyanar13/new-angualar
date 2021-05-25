@@ -1,0 +1,7 @@
+<p>map works!</p>
+<agm-map [latitude]="lat" [longitude]="lng" (mapReady)="mapreadyhandler()">
+    <agm-circle [latitude]="lat" [longitude]="lng" [radius]="10000" [fillColor]="'#f44336'">
+    </agm-circle>
+    <agm-info-window *ngIf="islocation" [latitude]="0" [longitude]="0" [maxWidth]="300" [isOpen]=true>location not found</agm-info-window>
+</agm-map>
+<h1>{{location}}</h1>

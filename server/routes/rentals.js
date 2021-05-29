@@ -1,6 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const rentals=require('../models/rental')
+const userctrl=require("../controller/user")
+
+router.get("/scecrt",userctrl.authmiddleware,function (req,res) {
+    res.json({"scecrt":true})
+    
+})
 
 router.get('/', function (req, res) {
    

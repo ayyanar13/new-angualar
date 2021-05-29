@@ -1,4 +1,5 @@
 const Rental=require('./rental') 
+const User=require("./user")
  
  class fakedb{
      constructor(){
@@ -35,18 +36,39 @@ const Rental=require('./rental')
              description: "Very nice apartment in center of the city.",
              dailyRate: 23
          }]
-     }
-async cleandb(){    
-}
-     pushrenatls(){
-         this.rentals.forEach((rental)=>{
-             const newrentals = new Rental(rental)
-             newrentals.save()
-         })
-     }
-     seeddb(){
-        this.pushrenatls()
-     }
 
-    }
+         this.users=[{
+            username:"ayyanar",
+            email:"ayyanar@gamil.in",
+             password:"$2b$10$G6vD6Tgko9c.tWh50q6QiuvsxHifuH/BPJ1RSq5MRAYNa.vR7bufy"
+         }];
+     }
+        async cleandb(){   
+            await Rental.remove()
+            await User.remove()
+
+        }
+
+        pushDatetodb(){
+            console.log(this.users[0]);
+            
+            const user = new User(this.users[0])
+            this.rentals.forEach((rental)=>{
+                const newrentals = new Rental(rental)
+                newrentals.user=user;
+                console.log(newrentals);
+                user.rentals.push(newrentals)
+                newrentals.save(function (err,res) {
+                    console.log(res);
+                    
+                    
+                })
+           })
+           user.save()
+        }
+        async seeddb(){
+           await this.cleandb()
+            this.pushDatetodb()
+        }
+  }
     module.exports=fakedb;

@@ -1,21 +1,28 @@
 const express= require('express')
 const mongoose = require ('mongoose')
 var app=express()
+const bodyparser=require("body-parser")
 var Rental=require('./models/rental')
 const Fakedb=require('./models/faksdb')
-const Routes=require('./routes/rentals')
+const rentalRoutes=require('./routes/rentals')
+const userRoutes=require('./routes/user')
 app.use(function (req, res, next) {
     console.log("originalurl", req.originalUrl)
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-app.use('/api/v1/rentals', Routes)
+app.use(bodyparser.json())
+app.use('/api/v1/rentals', rentalRoutes)
+app.use('/api/v1/user', userRoutes)
 
 
 
 /** MongoDB Connection */
-mongoose.connect('mongodb://' + 'localhost' + ':' + 27017 + '/' + 'hotel-booking')
+mongoose.connect('mongodb://' + 'localhost' + ':' + 27017 + '/' + 'hotel-booking').then(()=>{
+    const fakedb = new Fakedb()
+    // fakedb.seeddb()
+})
 mongoose.connection.on('error', function (error) {
     console.error('Error in MongoDb connection: ' + error);
 });

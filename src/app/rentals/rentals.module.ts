@@ -10,6 +10,8 @@ import { MapModule } from "../common/map/map.module";
 
 import { Routes, RouterModule } from "@angular/router";
 import { RentalDetailsComponent } from './rental-details/rental-details.component';
+import { RetalDetailsBookingComponent } from './rental-details/retal-details-booking/retal-details-booking.component';
+import { Daterangepicker } from 'ng2-daterangepicker';
 
 const routes: Routes = [
     { path: "rentals", component: RentalsComponent ,
@@ -23,13 +25,15 @@ const routes: Routes = [
         RentalListComponent,
         RentalListItemsComponent,
         RentalsComponent,
-        RentalDetailsComponent
+        RentalDetailsComponent,
+        RetalDetailsBookingComponent
     ],
     imports:[
         CommonModule,
         HttpClientModule,
         NgPipesModule,
         MapModule,
+        Daterangepicker,
         RouterModule.forChild(routes)
     ],
     providers:[
